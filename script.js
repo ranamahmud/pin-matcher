@@ -1,13 +1,30 @@
-// hide the notifications
-let notifyError = document.querySelector(".notify-section p:first-child");
-let notifySuccess = document.querySelector(".notify-section p:nth-child(2)");
+function getElement(elementClass) {
+    let element = document.querySelector(elementClass);
+    return element;
+}
 
-notifyError.style.display = "none";
-notifySuccess.style.display = "none";
+function toggleElement(element, hide = true) {
+    if (hide === true) {
+        element.style.display = "none";
+    } else {
+        element.style.display = "block";
+    }
+}
+// hide the notifications
+let notifyError = getElement(".notify-section p:first-child");
+let notifySuccess = getElement(".notify-section p:nth-child(2)");
+let notifyPin = getElement(".notify-section p:nth-child(3)");
+let notifyUserPin = getElement(".notify-section p:nth-child(4)");
+
+toggleElement(notifyError);
+toggleElement(notifySuccess);
+toggleElement(notifyPin);
+toggleElement(notifyUserPin);
+
 
 let generatedPin = document.getElementsByClassName("form-control")[0];
 let userPin = document.getElementsByClassName("form-control")[1];
-let buttonGenerate = document.querySelector(".generate-btn");
+let buttonGenerate = getElement(".generate-btn");
 
 let userPinValue = "";
 
@@ -22,42 +39,56 @@ const keys = document.querySelectorAll(".calc-body .button");
 keys.forEach(function (key) {
     key.addEventListener('click', e => {
         const action = e.target.dataset.action;
-        if(action == "back"){
+        if (action == "clear") {
             userPinValue = "";
             userPin.value = userPinValue;
-        }else if(action == "clear"){
-            userPinValue = userPinValue.substring(0,userPinValue.length - 1);
+        } else if (action == "back") {
+            userPinValue = userPinValue.substring(0, userPinValue.length - 1);
             userPin.value = userPinValue;
-    
-        }else if(e.target.className=="button"){
+
+        } else if (e.target.className == "button") {
             // console.log(e.target.innerHTML);
             userPinValue += e.target.innerHTML;
             userPin.value = userPinValue;
-    
+
         }
     })
-    
+
 })
 
 
-let submitButton = document.querySelector(".submit-btn");
+let submitButton = getElement(".submit-btn");
 let totalTry = 0;
-let alert = document.querySelector(".action-left");
-submitButton.addEventListener('click',function(){
-
+let alert = getElement(".action-left");
+submitButton.addEventListener('click', function () {
+    console.log(generatedPin.value);
+    console.log(userPinValue);
     totalTry += 1;
-   
-    if(totalTry <= 3){
-        alert.innerHTML = (3-totalTry) + " try left";
-        if(generatedPin.value == userPinValue){
-            notifyError.style.display = "none";
-            notifySuccess.style.display = "block";
-        }else{
-            notifyError.style.display = "block";
-            notifySuccess.style.display = "none";
+
+    if (totalTry <= 3) {
+        alert.innerHTML = (3 - totalTry) + " try left";
+        console.log(userPinValue.length);
+        // validation
+        if (generatedPin.value.toString().length != 4) {
+            toggleElement(notifySuccess);
+            toggleElement(notifyError);
+            toggleElement(notifyPin, hide = false);
         }
-    }else{
+        else if (userPinValue.length == 0) {
+            toggleElement(notifySuccess);
+            toggleElement(notifyError);
+            toggleElement(notifyUserPin, hide = false);
+        }
+        else
+            if (generatedPin.value === userPinValue) {
+                toggleElement(notifySuccess, hide = false);
+                toggleElement(notifyError);
+            } else {
+                toggleElement(notifySuccess);
+                toggleElement(notifyError, hide = false);
+            }
+    } else {
         submitButton.disabled = true;
     }
-  
+
 })
