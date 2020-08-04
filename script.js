@@ -47,7 +47,6 @@ keys.forEach(function (key) {
             userPin.value = userPinValue;
 
         } else if (e.target.className == "button") {
-            // console.log(e.target.innerHTML);
             userPinValue += e.target.innerHTML;
             userPin.value = userPinValue;
 
@@ -61,13 +60,11 @@ let submitButton = getElement(".submit-btn");
 let totalTry = 0;
 let alert = getElement(".action-left");
 submitButton.addEventListener('click', function () {
-    console.log(generatedPin.value);
-    console.log(userPinValue);
+    
     totalTry += 1;
 
     if (totalTry <= 3) {
         alert.innerHTML = (3 - totalTry) + " try left";
-        console.log(userPinValue.length);
         // validation
         if (generatedPin.value.toString().length != 4) {
             toggleElement(notifySuccess);
@@ -83,6 +80,7 @@ submitButton.addEventListener('click', function () {
             if (generatedPin.value === userPinValue) {
                 toggleElement(notifySuccess, hide = false);
                 toggleElement(notifyError);
+                submitButton.disabled = true;
             } else {
                 toggleElement(notifySuccess);
                 toggleElement(notifyError, hide = false);
