@@ -58,6 +58,8 @@ keys.forEach(function (key) {
 
 })
 
+// regex for exact 4 digit number matching
+let pattern = /^\d{4}$/;
 // submit button functionality
 let submitButton = getElement(".submit-btn");
 let totalTry = 0;
@@ -86,7 +88,7 @@ submitButton.addEventListener('click', function () {
                 toggleElement(notifyUserPin);
 
             }
-            else if (userPinValue.length == 0) {
+            else if (userPinValue.match(pattern) == null) {
                 toggleElement(notifySuccess);
                 toggleElement(notifyError);
                 toggleElement(notifyPin);
