@@ -61,30 +61,34 @@ let totalTry = 0;
 let alert = getElement(".action-left");
 submitButton.addEventListener('click', function () {
     
+    userPinValue = userPin.value;
     totalTry += 1;
 
     if (totalTry <= 3) {
         alert.innerHTML = (3 - totalTry) + " try left";
         // validation
-        if (generatedPin.value.toString().length != 4) {
-            toggleElement(notifySuccess);
+        if (generatedPin.value === userPinValue) {
+            toggleElement(notifySuccess, hide = false);
             toggleElement(notifyError);
-            toggleElement(notifyPin, hide = false);
-        }
-        else if (userPinValue.length == 0) {
-            toggleElement(notifySuccess);
-            toggleElement(notifyError);
-            toggleElement(notifyUserPin, hide = false);
-        }
-        else
-            if (generatedPin.value === userPinValue) {
-                toggleElement(notifySuccess, hide = false);
-                toggleElement(notifyError);
-                submitButton.disabled = true;
-            } else {
+            toggleElement(notifyPin);
+            toggleElement(notifyUserPin);
+            submitButton.disabled = true;
+        } else
+            if (generatedPin.value.toString().length != 4) {
                 toggleElement(notifySuccess);
-                toggleElement(notifyError, hide = false);
+                toggleElement(notifyError);
+                toggleElement(notifyPin, hide = false);
+                toggleElement(notifyUserPin);
+
             }
+            else if (userPinValue.length == 0) {
+                toggleElement(notifySuccess);
+                toggleElement(notifyError);
+                toggleElement(notifyPin);
+                toggleElement(notifyUserPin, hide = false);
+            }
+
+
     } else {
         submitButton.disabled = true;
     }
