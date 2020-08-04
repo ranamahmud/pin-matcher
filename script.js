@@ -69,13 +69,20 @@ submitButton.addEventListener('click', function () {
 
     if (totalTry <= 3) {
         alert.innerHTML = (3 - totalTry) + " try left";
-        if (generatedPin.value === userPinValue) {
+        if (generatedPin.value == userPinValue) {
             toggleElement(notifySuccess, hide = false);
             toggleElement(notifyError);
             toggleElement(notifyPin);
             toggleElement(notifyUserPin);
             submitButton.disabled = true;
-        } else
+        } else if (generatedPin.value != userPinValue) {
+            toggleElement(notifySuccess);
+            toggleElement(notifyError, hide = false);
+            toggleElement(notifyPin);
+            toggleElement(notifyUserPin);
+        }
+
+        else
             if (generatedPin.value.toString().length != 4) {
                 toggleElement(notifySuccess);
                 toggleElement(notifyError);
