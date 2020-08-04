@@ -75,11 +75,6 @@ submitButton.addEventListener('click', function () {
             toggleElement(notifyPin);
             toggleElement(notifyUserPin);
             submitButton.disabled = true;
-        } else if (generatedPin.value != userPinValue) {
-            toggleElement(notifySuccess);
-            toggleElement(notifyError, hide = false);
-            toggleElement(notifyPin);
-            toggleElement(notifyUserPin);
         }
 
         else
@@ -95,6 +90,12 @@ submitButton.addEventListener('click', function () {
                 toggleElement(notifyError);
                 toggleElement(notifyPin);
                 toggleElement(notifyUserPin, hide = false);
+            }
+            else if (generatedPin.value != userPinValue) {
+                toggleElement(notifySuccess);
+                toggleElement(notifyError, hide = false);
+                toggleElement(notifyPin);
+                toggleElement(notifyUserPin);
             }
 
 
