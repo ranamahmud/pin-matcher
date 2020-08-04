@@ -69,7 +69,8 @@ submitButton.addEventListener('click', function () {
 
     if (totalTry <= 3) {
         alert.innerHTML = (3 - totalTry) + " try left";
-        if (generatedPin.value == userPinValue) {
+        if (generatedPin.value == userPinValue && 
+            generatedPin.value != "") {
             toggleElement(notifySuccess, hide = false);
             toggleElement(notifyError);
             toggleElement(notifyPin);
