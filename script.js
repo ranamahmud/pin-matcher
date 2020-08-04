@@ -40,4 +40,24 @@ keys.forEach(function (key) {
 })
 
 
-// keys.
+let submitButton = document.querySelector(".submit-btn");
+let totalTry = 0;
+let alert = document.querySelector(".action-left");
+submitButton.addEventListener('click',function(){
+
+    totalTry += 1;
+   
+    if(totalTry <= 3){
+        alert.innerHTML = (3-totalTry) + " try left";
+        if(generatedPin.value == userPinValue){
+            notifyError.style.display = "none";
+            notifySuccess.style.display = "block";
+        }else{
+            notifyError.style.display = "block";
+            notifySuccess.style.display = "none";
+        }
+    }else{
+        submitButton.disabled = true;
+    }
+  
+})
