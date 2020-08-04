@@ -3,6 +3,7 @@ function getElement(elementClass) {
     return element;
 }
 
+// function for element hide and show 
 function toggleElement(element, hide = true) {
     if (hide === true) {
         element.style.display = "none";
@@ -16,18 +17,19 @@ let notifySuccess = getElement(".notify-section p:nth-child(2)");
 let notifyPin = getElement(".notify-section p:nth-child(3)");
 let notifyUserPin = getElement(".notify-section p:nth-child(4)");
 
+// hide elements at start
 toggleElement(notifyError);
 toggleElement(notifySuccess);
 toggleElement(notifyPin);
 toggleElement(notifyUserPin);
 
-
+// get elements
 let generatedPin = document.getElementsByClassName("form-control")[0];
 let userPin = document.getElementsByClassName("form-control")[1];
 let buttonGenerate = getElement(".generate-btn");
 
 let userPinValue = "";
-
+// random buttton event listener
 buttonGenerate.addEventListener('click', function () {
     let randomNumber = Math.random();
     let randomString = randomNumber.toString();
@@ -35,6 +37,7 @@ buttonGenerate.addEventListener('click', function () {
     generatedPin.value = randomFixed;
 })
 
+// add event listner to all buttons
 const keys = document.querySelectorAll(".calc-body .button");
 keys.forEach(function (key) {
     key.addEventListener('click', e => {
@@ -55,18 +58,17 @@ keys.forEach(function (key) {
 
 })
 
-
+// submit button functionality
 let submitButton = getElement(".submit-btn");
 let totalTry = 0;
 let alert = getElement(".action-left");
 submitButton.addEventListener('click', function () {
-    
+
     userPinValue = userPin.value;
     totalTry += 1;
 
     if (totalTry <= 3) {
         alert.innerHTML = (3 - totalTry) + " try left";
-        // validation
         if (generatedPin.value === userPinValue) {
             toggleElement(notifySuccess, hide = false);
             toggleElement(notifyError);
