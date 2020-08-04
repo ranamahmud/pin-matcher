@@ -19,23 +19,25 @@ buttonGenerate.addEventListener('click', function () {
 })
 
 const keys = document.querySelectorAll(".calc-body .button");
-for(key of keys){
-    console.log(key);
-}
-keys.addEventListener('click', e => {
-    console.log(e.target);
-    const action = e.target.dataset.action;
-    if(action == "back"){
-        userPinValue = "";
-        userPin.value = userPinValue;
-    }else if(action == "clear"){
-        userPinValue = userPinValue.substring(0,userPinValue.length - 1);
-        userPin.value = userPinValue;
-
-    }else if(e.target.className=="button"){
-        // console.log(e.target.innerHTML);
-        userPinValue += e.target.innerHTML;
-        userPin.value = userPinValue;
-
-    }
+keys.forEach(function (key) {
+    key.addEventListener('click', e => {
+        const action = e.target.dataset.action;
+        if(action == "back"){
+            userPinValue = "";
+            userPin.value = userPinValue;
+        }else if(action == "clear"){
+            userPinValue = userPinValue.substring(0,userPinValue.length - 1);
+            userPin.value = userPinValue;
+    
+        }else if(e.target.className=="button"){
+            // console.log(e.target.innerHTML);
+            userPinValue += e.target.innerHTML;
+            userPin.value = userPinValue;
+    
+        }
+    })
+    
 })
+
+
+// keys.
